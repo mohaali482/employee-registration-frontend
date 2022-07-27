@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import { Link } from 'react-router-dom';
 
 const TableData = ({data}) => {
   const {key, fullname, created_date, id} = data;
@@ -23,17 +24,17 @@ const TableData = ({data}) => {
       </TableCell>
       <TableCell align='center'>
         <Tooltip title='Detail'>
-          <IconButton>
+          <IconButton LinkComponent={Link} to={`detail/${id}`}>
             <InfoIcon sx={{color:'custom.main'}} />
           </IconButton>
         </Tooltip>
         <Tooltip title='Edit'>
-          <IconButton>
+          <IconButton LinkComponent={Link} to={`edit/${id}`}>
             <EditIcon sx={{color:'secondary.main'}} />
           </IconButton>
         </Tooltip>
         <Tooltip title='Delete'>
-          <IconButton>
+          <IconButton LinkComponent={Link} to={`delete/${id}`}>
             <DeleteIcon sx={{color:'primary.danger'}}/>
           </IconButton>
         </Tooltip>

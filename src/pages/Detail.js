@@ -1,15 +1,29 @@
-import React from 'react'
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import Paper from '@mui/material/Paper';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import { CardContent, Grid, Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import dummyImage from '../static/img/dummy.jfif';
+
 
 const Detail = () => {
     const { id } = useParams();
   return (
-        <Box component={Paper}>
-            Detail page of {id}
-        </Box>
+    <Card>
+        <CardHeader title={`Detail of ${id}`} sx={{backgroundColor: 'custom.main', color: '#fff'}}/>
+        <CardContent>
+            <Box sx={{display: 'flex'}}>
+                <Box width={'40%'} mr={'10px'}>
+                    <img src={dummyImage} width={'100%'}/>
+                </Box>
+                <Grid container spacing={2}>
+                    Hello
+                </Grid>
+            </Box>
+        </CardContent>
+
+    </Card>
   )
 }
 

@@ -24,7 +24,6 @@ const Home = () => {
     id:'7ae95dsfwe984'
   }
   return (
-    <Container sx={{mt: '2em'}}>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -48,7 +47,6 @@ const Home = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
   )
 }
 

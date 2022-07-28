@@ -1,15 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from './components/Navbar';
+import Detail from './pages/Detail';
 import Home from './pages/Home';
+import Container from '@mui/material/Container';
 
 const App = () => {
   return (
     <Router>
         <Navbar />
-        <Routes>
-            <Route exact path='/' element={ <Home /> }/>
-        </Routes>
+        <Container sx={{mt: '2em'}}>
+          <Routes>
+              <Route exact path='/detail/:id' element={ <Detail /> }/>
+              <Route exact path='/' element={ <Home /> }/>
+          </Routes>
+        </Container>
     </Router>
   )
 }

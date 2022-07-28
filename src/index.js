@@ -17,6 +17,10 @@ const theme = createTheme({
     custom: {
       main: green[500],
       contrastText: '#fff',
+    },
+    danger: {
+      main: red[700],
+      contrastText: '#fff',
     }
   },
 })

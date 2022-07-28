@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import { CardContent, Grid } from '@mui/material';
 import { Box } from '@mui/system';
+import GridItem from '../components/GridItem';
 import dummyImage from '../static/img/dummy.jfif';
 
 
@@ -18,7 +19,7 @@ const Detail = () => {
                     <img src={dummyImage} width={'100%'}/>
                 </Box>
                 <Grid container spacing={2}>
-                    Hello
+                    <GridItem dataKey={'Name'} dataValue={'Mohammed Ali'} />
                 </Grid>
             </Box>
         </CardContent>

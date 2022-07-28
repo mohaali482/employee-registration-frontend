@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import { CardContent, Grid, Typography } from '@mui/material';
+import { CardContent, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 import dummyImage from '../static/img/dummy.jfif';
 

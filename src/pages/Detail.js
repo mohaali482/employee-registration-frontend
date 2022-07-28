@@ -2,8 +2,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import { CardContent, Grid } from '@mui/material';
+import { Button, CardActions, CardContent, Grid } from '@mui/material';
 import { Box } from '@mui/system';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import GridItem from '../components/GridItem';
 import dummyImage from '../static/img/dummy.jfif';
 
@@ -23,7 +25,14 @@ const Detail = () => {
                 </Grid>
             </Box>
         </CardContent>
-
+        <CardActions sx={{float: 'right'}}>
+            <Button color='secondary' variant='contained' startIcon={<EditIcon />}>
+                Edit
+            </Button>
+            <Button color='danger' variant='contained' startIcon={<DeleteIcon />}>
+                Delete
+            </Button>
+        </CardActions>
     </Card>
   )
 }

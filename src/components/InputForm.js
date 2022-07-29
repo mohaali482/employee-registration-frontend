@@ -27,7 +27,6 @@ const InputForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(image)
   }
   return (
     <Box component={'form'} onSubmit={handleSubmit}>

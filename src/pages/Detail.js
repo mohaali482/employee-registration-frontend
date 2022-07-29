@@ -18,7 +18,7 @@ const Detail = () => {
         <CardContent>
             <Box sx={{display: 'flex'}}>
                 <Box width={'40%'} mr={'10px'}>
-                    <img src={dummyImage} width={'100%'}/>
+                    <img src={dummyImage} width={'100%'} alt="employee"/>
                 </Box>
                 <Grid container spacing={2}>
                     <GridItem dataKey={'Name'} dataValue={'Mohammed Ali'} />

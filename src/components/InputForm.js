@@ -4,19 +4,19 @@ import CardContent from '@mui/material/CardContent';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useEffect, useState } from 'react';
 
-const InputForm = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [birthDate, setBirthDate] = useState(new Date('2000-01-01'));
-  const [martialStatus, setMartialStatus] = useState('');
-  const [ssnCode, setSsnCode] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [email, setEmail] = useState('');
-  const [personalPhone, setPersonalPhone] = useState('');
-  const [homePhone, setHomePhone] = useState('');
-  const [image, setImage] = useState(null);
+const InputForm = ({data}) => {
+  const [firstName, setFirstName] = useState(data ? data.firstName : '');
+  const [lastName, setLastName] = useState(data ? data.lastName : '');
+  const [birthDate, setBirthDate] = useState( data ? data.birthDate : new Date('2000-01-01'));
+  const [martialStatus, setMartialStatus] = useState(data ? data.martialStatus : '');
+  const [ssnCode, setSsnCode] = useState(data ? data.ssnCode : '');
+  const [address, setAddress] = useState(data ? data.address : '');
+  const [city, setCity] = useState(data ? data.city : '');
+  const [postalCode, setPostalCode] = useState(data ? data.postalCode : '');
+  const [email, setEmail] = useState(data ? data.email : '');
+  const [personalPhone, setPersonalPhone] = useState(data ? data.personalPhone : '');
+  const [homePhone, setHomePhone] = useState(data ? data.homePhone : '');
+  const [image, setImage] = useState(data ? data.image : null);
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(()=>{

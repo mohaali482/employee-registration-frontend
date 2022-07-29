@@ -5,27 +5,32 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useEffect, useState } from 'react';
 
 const InputForm = () => {
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [birthDate, setBirthDate] = useState(null);
-  const [martialStatus, setMartialStatus] = useState(null);
-  const [ssnCode, setSsnCode] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [city, setCity] = useState(null);
-  const [postalCode, setPostalCode] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [personalPhone, setPersonalPhone] = useState(null);
-  const [homePhone, setHomePhone] = useState(null);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [birthDate, setBirthDate] = useState(new Date('2000-01-01'));
+  const [martialStatus, setMartialStatus] = useState('');
+  const [ssnCode, setSsnCode] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [email, setEmail] = useState('');
+  const [personalPhone, setPersonalPhone] = useState('');
+  const [homePhone, setHomePhone] = useState('');
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
-    useEffect(()=>{
-        if (image){
-            setImageUrl(URL.createObjectURL(image));
-        }
-    }, [image])
+  useEffect(()=>{
+      if (image){
+          setImageUrl(URL.createObjectURL(image));
+      }
+  }, [image])
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(image)
+  }
   return (
-    <Box component={'form'}>
+    <Box component={'form'} onSubmit={handleSubmit}>
       <CardContent>
         <Box sx={{display: 'flex'}}>
           <Box width={'40%'} mr={'10px'}>

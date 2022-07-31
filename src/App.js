@@ -5,6 +5,7 @@ import Add from './pages/Add';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Container from '@mui/material/Container';
+import Edit from './pages/Edit';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Navbar />
         <Container sx={{mt: '2em'}}>
           <Routes>
+              <Route exact path='/edit/:id' element={ <Edit /> }/>
               <Route exact path='/detail/:id' element={ <Detail /> }/>
               <Route exact path='/add' element={ <Add /> }/>
               <Route exact path='/' element={ <Home /> }/>

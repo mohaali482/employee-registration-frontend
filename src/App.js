@@ -6,6 +6,7 @@ import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Container from '@mui/material/Container';
 import Edit from './pages/Edit';
+import Delete from './pages/Delete';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Navbar />
         <Container sx={{mt: '2em'}}>
           <Routes>
+              <Route exact path='/delete/:id' element={ <Delete />} />
               <Route exact path='/edit/:id' element={ <Edit /> }/>
               <Route exact path='/detail/:id' element={ <Detail /> }/>
               <Route exact path='/add' element={ <Add /> }/>

@@ -8,6 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableData from '../components/TableData';
+import { useSelector } from 'react-redux';
+import { TableFooter } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -16,12 +18,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const Home = () => {
-  const data = {
-    key: 1,
-    fullname: 'Abebe Beso',
-    created_date: '2021-02-02',
-    id:'7ae95dsfwe984'
-  }
+  const { employees } = useSelector(state => state.employees)
   return (
       <TableContainer component={Paper}>
         <Table>
@@ -41,9 +38,21 @@ const Home = () => {
               </StyledTableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            <TableData data={data}/>
-          </TableBody>
+            { employees.length > 0 ?
+              (<TableBody>
+                {
+                employees.map((employee, index) => (
+                    <TableData key={index} data={employee} index={index+1} />
+                ))}
+              </TableBody>):
+              (<TableFooter>
+                <TableRow>
+                  <TableCell colSpan={4} align='center'>
+                    No data
+                  </TableCell>
+                </TableRow>
+                </TableFooter>)
+            }
         </Table>
       </TableContainer>
   )

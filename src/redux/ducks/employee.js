@@ -41,7 +41,8 @@ export default function reducer(state=initialState, action) {
                     state.employees,
                     {
                         id: nextId(state),
-                        ...action.payload
+                        ...action.payload,
+                        created_date: new Date().toDateString()
                     }
                 ]
             }

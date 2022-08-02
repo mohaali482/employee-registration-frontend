@@ -25,7 +25,7 @@ const nextId = (employees) => {
         }
     })
 
-    return max++;
+    return ++max;
 }
 
 const initialState = {
@@ -38,9 +38,9 @@ export default function reducer(state=initialState, action) {
             return {
                 ...state,
                 employees: [
-                    state.employees,
+                    ...state.employees,
                     {
-                        id: nextId(state),
+                        id: nextId(state.employees),
                         ...action.payload,
                         created_date: new Date().toDateString()
                     }

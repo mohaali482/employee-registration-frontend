@@ -8,13 +8,13 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
 
-const TableData = ({data}) => {
-  const {key, fullname, created_date, id} = data;
+const TableData = ({index, data}) => {
+  const { first_name, last_name, created_date, id } = data;
   
   return (
     <TableRow>
       <TableCell>
-        {key}.
+        {index}.
       </TableCell>
       <TableCell align='left'>
         {first_name + last_name}

@@ -3,8 +3,14 @@ import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import CardContent from '@mui/material/CardContent';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux/es/exports';
+import { createEmployee } from '../redux/ducks/employee';
+import { useNavigate } from 'react-router-dom';
 
 const InputForm = ({data}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [firstName, setFirstName] = useState(data ? data.firstName : '');
   const [lastName, setLastName] = useState(data ? data.lastName : '');
   const [birthDate, setBirthDate] = useState( data ? data.birthDate : new Date('2000-01-01'));
@@ -27,6 +33,23 @@ const InputForm = ({data}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = {
+      firstName,
+      lastName,
+      birthDate,
+      martialStatus,
+      ssnCode,
+      address,
+      city,
+      postalCode,
+      email,
+      personalPhone,
+      homePhone,
+      image
+    };
+
+    dispatch(createEmployee(data));
+    navigate(-1);
   }
   return (
     <Box component={'form'} onSubmit={handleSubmit}>

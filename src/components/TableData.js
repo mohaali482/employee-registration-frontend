@@ -17,7 +17,7 @@ const TableData = ({data}) => {
         {key}.
       </TableCell>
       <TableCell align='left'>
-        {fullname}
+        {first_name + last_name}
       </TableCell>
       <TableCell align='center'>
         {created_date}

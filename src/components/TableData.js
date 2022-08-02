@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
 
 const TableData = ({index, data}) => {
-  const { first_name, last_name, created_date, id } = data;
+  const { firstName, lastName, created_date, id } = data;
   
   return (
     <TableRow>
@@ -17,7 +17,7 @@ const TableData = ({index, data}) => {
         {index}.
       </TableCell>
       <TableCell align='left'>
-        {first_name + last_name}
+        {`${firstName} ${lastName}`}
       </TableCell>
       <TableCell align='center'>
         {created_date}

@@ -20,7 +20,8 @@ const Detail = () => {
         <CardContent>
             <Box sx={{display: 'flex'}}>
                 <Box width={'40%'} mr={'10px'}>
-                    <img src={URL.createObjectURL(employee.image)} width={'100%'} alt="employee"/>
+                    { employee.image &&
+                    <img src={URL.createObjectURL(employee.image)} width={'100%'} alt="employee"/>}
                 </Box>
                 <Box>
                     <Grid container spacing={2}>

@@ -4,25 +4,25 @@ import CardContent from '@mui/material/CardContent';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
-import { createEmployee } from '../redux/ducks/employee';
+import { createEmployee, updateEmployee } from '../redux/ducks/employee';
 import { useNavigate } from 'react-router-dom';
 
-const InputForm = ({data}) => {
+const InputForm = ({employee, update}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [firstName, setFirstName] = useState(data ? data.firstName : '');
-  const [lastName, setLastName] = useState(data ? data.lastName : '');
-  const [birthDate, setBirthDate] = useState( data ? data.birthDate : new Date('2000-01-01'));
-  const [martialStatus, setMartialStatus] = useState(data ? data.martialStatus : '');
-  const [ssnCode, setSsnCode] = useState(data ? data.ssnCode : '');
-  const [address, setAddress] = useState(data ? data.address : '');
-  const [city, setCity] = useState(data ? data.city : '');
-  const [postalCode, setPostalCode] = useState(data ? data.postalCode : '');
-  const [email, setEmail] = useState(data ? data.email : '');
-  const [personalPhone, setPersonalPhone] = useState(data ? data.personalPhone : '');
-  const [homePhone, setHomePhone] = useState(data ? data.homePhone : '');
-  const [image, setImage] = useState(data ? data.image : null);
+  const [firstName, setFirstName] = useState(employee ? employee.firstName : '');
+  const [lastName, setLastName] = useState(employee ? employee.lastName : '');
+  const [birthDate, setBirthDate] = useState( employee ? employee.birthDate : new Date('2000-01-01'));
+  const [martialStatus, setMartialStatus] = useState(employee ? employee.martialStatus : '');
+  const [ssnCode, setSsnCode] = useState(employee ? employee.ssnCode : '');
+  const [address, setAddress] = useState(employee ? employee.address : '');
+  const [city, setCity] = useState(employee ? employee.city : '');
+  const [postalCode, setPostalCode] = useState(employee ? employee.postalCode : '');
+  const [email, setEmail] = useState(employee ? employee.email : '');
+  const [personalPhone, setPersonalPhone] = useState(employee ? employee.personalPhone : '');
+  const [homePhone, setHomePhone] = useState(employee ? employee.homePhone : '');
+  const [image, setImage] = useState(employee ? employee.image : null);
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(()=>{
@@ -33,7 +33,7 @@ const InputForm = ({data}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
+    let data = {
       firstName,
       lastName,
       birthDate,
@@ -48,7 +48,15 @@ const InputForm = ({data}) => {
       image
     };
 
-    dispatch(createEmployee(data));
+    if(update){
+      data = {
+        ...data,
+        id: employee.id
+      }
+      dispatch(updateEmployee(data))
+    }else{
+      dispatch(createEmployee(data));
+    }
     navigate(-1);
   }
   return (

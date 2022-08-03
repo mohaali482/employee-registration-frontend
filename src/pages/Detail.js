@@ -27,6 +27,7 @@ const Detail = () => {
                     <Grid container spacing={2}>
                         <GridItem dataKey={'First Name'} dataValue={employee.firstName} />
                         <GridItem dataKey={'Last Name'} dataValue={employee.lastName} />
+                        <GridItem dataKey={'Email'} dataValue={employee.email} />
                         <GridItem dataKey={'Birth Date'} dataValue={employee.birthDate[0]} />
                         <GridItem dataKey={'Martial Status'} dataValue={employee.martialStatus} />
                         <GridItem dataKey={'SSN Code'} dataValue={employee.ssnCode} />

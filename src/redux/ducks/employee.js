@@ -50,7 +50,7 @@ export default function reducer(state=initialState, action) {
             return {
                 ...state,
                 employees: [
-                    state.employees,
+                    ...state.employees.filter((employee) => employee.id != action.payload.id),
                     {
                         id: action.payload.id,
                         ...action.payload
@@ -62,7 +62,7 @@ export default function reducer(state=initialState, action) {
             return {
                 ...state,
                 employees: [
-                    state.employees.filter((employee) => employee.id !== action.payload)
+                    ...state.employees.filter((employee) => employee.id != action.payload)
                 ]
             }
 

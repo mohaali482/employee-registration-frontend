@@ -62,8 +62,8 @@ const InputForm = ({employee, update}) => {
   return (
     <Box component={'form'} onSubmit={handleSubmit}>
       <CardContent>
-        <Box sx={{display: 'flex'}}>
-          <Box width={'40%'} mr={'10px'}>
+        <Box sx={{display: 'flex', flexDirection: { xs: 'column', sm: 'row'}, justifyContent:'center', alignItems: {xs: 'center', sm:'flex-start'}}}>
+          <Box width={'40%'} mr={'10px'} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
               {image && imageUrl && (<img src={imageUrl} alt={image.name} width={'100%'}/>)}
               <input accept='image/*' type='file' id='image' style={{display: 'none'}} onChange={e => setImage(e.target.files[0])}/>
               <label htmlFor='image' style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>

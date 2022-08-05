@@ -53,6 +53,7 @@ export default function reducer(state=initialState, action) {
                     ...state.employees.filter((employee) => employee.id != action.payload.id),
                     {
                         id: action.payload.id,
+                        created_date: state.employees.find((employee) => employee.id == action.payload.id).created_date,
                         ...action.payload
                     }
                 ]

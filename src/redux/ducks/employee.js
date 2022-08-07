@@ -1,6 +1,17 @@
+export const GET_EMPLOYEE_LIST = "GET_EMPLOYEE_LIST";
+const SET_EMPLOYEE_LIST = "SET_EMPLOYEE_LIST";
 const CREATE = "create";
 const UPDATE = "update";
 const DELETE = "delete";
+
+export const getEmployeeList = () => ({
+    type: GET_EMPLOYEE_LIST
+})
+
+export const setEmployeeList = (data) => ({
+    type: SET_EMPLOYEE_LIST,
+    payload: data
+})
 
 export const createEmployee = (data) => ({
     type: CREATE,
@@ -34,6 +45,13 @@ const initialState = {
 
 export default function reducer(state=initialState, action) {
     switch (action.type) {
+        case SET_EMPLOYEE_LIST:
+            return {
+                ...state,
+                employees: [
+                    ...action.payload
+                ]
+            }
         case CREATE:
             return {
                 ...state,

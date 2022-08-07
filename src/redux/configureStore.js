@@ -1,11 +1,21 @@
-import { combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga'
 import employeeReducer from './ducks/employee';
+import { watcherSaga } from "./sagas/rootsaga";
 
 const reducer = combineReducers({
     employees: employeeReducer
 })
 
-const store = createStore(reducer, composeWithDevTools())
+const sagaMiddleware = createSagaMiddleware();
+
+const middleware = [
+    sagaMiddleware
+]
+
+const store = createStore(reducer, [composeWithDevTools()], applyMiddleware(...middleware))
+
+sagaMiddleware.run(watcherSaga)
 
 export default store;

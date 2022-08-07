@@ -27,7 +27,11 @@ const InputForm = ({employee, update}) => {
 
   useEffect(()=>{
       if (image){
+        try{
           setImageUrl(URL.createObjectURL(image));
+        }catch{
+          setImageUrl(image)
+        }
       }
   }, [image])
 

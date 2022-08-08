@@ -1,5 +1,9 @@
 export const GET_EMPLOYEE_LIST = "GET_EMPLOYEE_LIST";
+export const GET_EMPLOYEE = "GET_EMPLOYEE";
+
 const SET_EMPLOYEE_LIST = "SET_EMPLOYEE_LIST";
+const SET_EMPLOYEE = "SET_EMPLOYEE";
+
 const CREATE = "create";
 const UPDATE = "update";
 const DELETE = "delete";
@@ -11,6 +15,18 @@ export const getEmployeeList = () => ({
 export const setEmployeeList = (data) => ({
     type: SET_EMPLOYEE_LIST,
     payload: data
+})
+
+export const getEmployee = (id) => ({
+    type: GET_EMPLOYEE,
+    payload: {
+        id
+    }
+})
+
+export const setEmployee = (data) => ({
+    type: SET_EMPLOYEE,
+    payload: {...data}
 })
 
 export const createEmployee = (data) => ({
@@ -40,7 +56,8 @@ const nextId = (employees) => {
 }
 
 const initialState = {
-    employees:[]
+    employees:[],
+    employee:{}
 }
 
 export default function reducer(state=initialState, action) {
@@ -51,6 +68,11 @@ export default function reducer(state=initialState, action) {
                 employees: [
                     ...action.payload
                 ]
+            }
+        case SET_EMPLOYEE:
+            return {
+                ...state,
+                employee: action.payload
             }
         case CREATE:
             return {
@@ -86,8 +108,6 @@ export default function reducer(state=initialState, action) {
             }
 
         default:
-            return {
-                ...state
-            }
+            return state
     }
 }

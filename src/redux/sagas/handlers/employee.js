@@ -1,15 +1,25 @@
 import { call, put } from 'redux-saga/effects';
-import { setEmployeeList } from '../../ducks/employee';
-import { requestGetEmployeeList } from '../requests/employee';
+import { setEmployee, setEmployeeList } from '../../ducks/employee';
+import { requestGetEmployee, requestGetEmployeeList } from '../requests/employee';
 
 export function* handleGetEmployeeList(action){
     try{
         const response = yield call(requestGetEmployeeList);
-        console.log(response)
         const {data} = response;
         yield put(setEmployeeList(data))
 
     }catch (error){
+        console.error(error)
+    }
+}
+
+export function* handleGetEmployee(action){
+    try{
+        const { id } = action.payload
+        const response = yield call(()=> requestGetEmployee(id))
+        const {data} = response;
+        yield put(setEmployee(data))
+    }catch(error){
         console.error(error)
     }
 }

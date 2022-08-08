@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux/es/exports';
 import { Link, useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -8,15 +9,19 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import GridItem from '../components/GridItem';
 import { useSelector } from 'react-redux';
+import { getEmployee } from '../redux/ducks/employee';
 
 
 const Detail = () => {
+    const dispatch = useDispatch();
     const { id } = useParams();
-    const { employees } = useSelector((state) => state.employees)
-    const employee = employees.find((employee) => employee.id == id)
+    useEffect(()=>{
+        dispatch(getEmployee(id));
+    }, [])
+    const { employee } = useSelector((state) => {console.log(state); return state.employees;})
   return (
     <Card>
-        <CardHeader title={`Detail of ${id}`} sx={{backgroundColor: 'custom.main', color: '#fff'}}/>
+        <CardHeader title={`Detail of ${employee.firstName + ' ' + employee.lastName}`} sx={{backgroundColor: 'custom.main', color: '#fff'}}/>
         <CardContent>
             <Box sx={{display: 'flex'}}>
                 <Box width={'40%'} mr={'10px'}>
@@ -28,7 +33,7 @@ const Detail = () => {
                         <GridItem dataKey={'First Name'} dataValue={employee.firstName} />
                         <GridItem dataKey={'Last Name'} dataValue={employee.lastName} />
                         <GridItem dataKey={'Email'} dataValue={employee.email} />
-                        <GridItem dataKey={'Birth Date'} dataValue={employee.birthDate[0]} />
+                        <GridItem dataKey={'Birth Date'} dataValue={employee.birthDate} />
                         <GridItem dataKey={'Martial Status'} dataValue={employee.martialStatus} />
                         <GridItem dataKey={'SSN Code'} dataValue={employee.ssnCode} />
                         <GridItem dataKey={'Address'} dataValue={employee.address} />

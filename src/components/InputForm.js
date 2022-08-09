@@ -3,26 +3,23 @@ import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import CardContent from '@mui/material/CardContent';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux/es/exports';
-import { createEmployee, updateEmployee } from '../redux/ducks/employee';
-import { useNavigate } from 'react-router-dom';
+import Loading from './Loading';
 
-const InputForm = ({employee, update}) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const InputForm = ({employee, handleSubmit}) => {
 
-  const [firstName, setFirstName] = useState(employee ? employee.firstName : '');
-  const [lastName, setLastName] = useState(employee ? employee.lastName : '');
-  const [birthDate, setBirthDate] = useState( employee ? employee.birthDate : new Date('2000-01-01'));
-  const [martialStatus, setMartialStatus] = useState(employee ? employee.martialStatus : '');
-  const [ssnCode, setSsnCode] = useState(employee ? employee.ssnCode : '');
-  const [address, setAddress] = useState(employee ? employee.address : '');
-  const [city, setCity] = useState(employee ? employee.city : '');
-  const [postalCode, setPostalCode] = useState(employee ? employee.postalCode : '');
-  const [email, setEmail] = useState(employee ? employee.email : '');
-  const [personalPhone, setPersonalPhone] = useState(employee ? employee.personalPhone : '');
-  const [homePhone, setHomePhone] = useState(employee ? employee.homePhone : '');
-  const [image, setImage] = useState(employee ? employee.image : null);
+  const [loading, setLoading] = useState(true);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [birthDate, setBirthDate] = useState( new Date('2000-01-01'));
+  const [martialStatus, setMartialStatus] = useState('single');
+  const [ssnCode, setSsnCode] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [email, setEmail] = useState('');
+  const [personalPhone, setPersonalPhone] = useState('');
+  const [homePhone, setHomePhone] = useState('');
+  const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(()=>{
@@ -33,43 +30,38 @@ const InputForm = ({employee, update}) => {
           setImageUrl(image)
         }
       }
+
+      return () => {
+        URL.revokeObjectURL(image);
+      }
   }, [image])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let data = {
-      firstName,
-      lastName,
-      birthDate,
-      martialStatus,
-      ssnCode,
-      address,
-      city,
-      postalCode,
-      email,
-      personalPhone,
-      homePhone,
-      image
-    };
-
-    if(update){
-      data = {
-        ...data,
-        id: employee.id
-      }
-      dispatch(updateEmployee(data))
-    }else{
-      dispatch(createEmployee(data));
+  useEffect(() => {
+    if (employee) {
+      setFirstName(employee.firstName)
+      setLastName(employee.lastName)
+      setBirthDate(employee.birthDate)
+      setMartialStatus(employee.martialStatus)
+      setSsnCode(employee.ssnCode)
+      setAddress(employee.address)
+      setCity(employee.city)
+      setPostalCode(employee.postalCode)
+      setEmail(employee.email)
+      setPersonalPhone(employee.personalPhone)
+      setHomePhone(employee.homePhone)
+      setImage(employee.image)
     }
-    navigate(-1);
-  }
+    setLoading(false)
+  }, [employee])
+
   return (
-    <Box component={'form'} onSubmit={handleSubmit}>
+    <Box component={'form'} onSubmit={handleSubmit} encType="multipart/form-data">
+      <Loading open={loading} />
       <CardContent>
         <Box sx={{display: 'flex', flexDirection: { xs: 'column', sm: 'row'}, justifyContent:'center', alignItems: {xs: 'center', sm:'flex-start'}}}>
           <Box width={'40%'} mr={'10px'} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
               {image && imageUrl && (<img src={imageUrl} alt={image.name} width={'100%'}/>)}
-              <input accept='image/*' type='file' id='image' style={{display: 'none'}} onChange={e => setImage(e.target.files[0])}/>
+              <input accept='image/*' type='file' id='image' style={{display: 'none'}} name='image' onChange={e => setImage(e.target.files[0])}/>
               <label htmlFor='image' style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
                   <Button variant='contained' color='custom' component='span' >
                       Upload Image
@@ -79,14 +71,16 @@ const InputForm = ({employee, update}) => {
           <Container>
             <Grid container spacing={2} sx={{mt: 1}}>
               <Grid item>
-                <TextField id='name'
+                <TextField id='firstName'
+                name='firstName'
                 label='First name'
                 required variant='outlined'
                 color='secondary' value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}/>
               </Grid>
               <Grid item>
-                <TextField id='name'
+                <TextField id='lastName'
+                name='lastName'
                 label='Last name' required
                 variant='outlined'
                 color='secondary' value={lastName}
@@ -94,16 +88,17 @@ const InputForm = ({employee, update}) => {
               </Grid>
               <Grid item>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <MobileDatePicker label="Birth Date"
-                    inputFormat="MM/dd/yyyy"
+                    <MobileDatePicker label="Birth Date"                    
+                    inputFormat="dd/MM/yyyy"
                     value={birthDate} onChange={(value) => setBirthDate(value)}
-                    renderInput={(params) => <TextField {...params} color='secondary'/>} />
+                    renderInput={(params) => <TextField name='birthDate' {...params} color='secondary'/>} />
                 </LocalizationProvider>
               </Grid>
               <Grid item>
                 <FormControl>
                   <InputLabel id='martial-status-label' color='secondary'>Martial Status</InputLabel>
                   <Select labelId='martial-status-label'
+                  name='martialStatus'
                   label='Martial Status' sx={{minWidth: 170}}
                   color='secondary' value={martialStatus}
                   onChange={(e) => setMartialStatus(e.target.value)}>
@@ -114,30 +109,35 @@ const InputForm = ({employee, update}) => {
               </Grid>
               <Grid item>
                 <TextField id='ssn'
+                name='ssnCode'
                 label='SSN Code' required
                 variant='outlined' color='secondary'
                 value={ssnCode} onChange={(e) => setSsnCode(e.target.value)}/>
               </Grid>
               <Grid item>
                 <TextField id='address'
+                name='address'
                 label='Address' required
                 variant='outlined' color='secondary'
                 value={address} onChange={(e) => setAddress(e.target.value)}/>
               </Grid>
               <Grid item>
                 <TextField id='city'
+                name='city'
                 label='City' required
                 variant='outlined' color='secondary'
                 value={city} onChange={(e) => setCity(e.target.value)}/>
               </Grid>
               <Grid item>
                 <TextField id='postal_code'
+                name='postalCode'
                 label='Postal Code' required
                 variant='outlined' color='secondary'
                 value={postalCode} onChange={(e) => setPostalCode(e.target.value)}/>
               </Grid>
               <Grid item>
                 <TextField id='email'
+                name='email'
                 label='Email' required
                 variant='outlined' type={'email'}
                 color='secondary' value={email}
@@ -145,6 +145,7 @@ const InputForm = ({employee, update}) => {
               </Grid>
               <Grid item>
                 <TextField id='personal_phone'
+                name='personalPhone'
                 label='Personal Phone' required
                 variant='outlined' type={'tel'}
                 color='secondary' value={personalPhone}
@@ -152,6 +153,7 @@ const InputForm = ({employee, update}) => {
               </Grid>
               <Grid item>
                 <TextField id='home_phone'
+                name='homePhone'
                 label='Home Phone' required
                 variant='outlined' type={'tel'}
                 color='secondary' value={homePhone}

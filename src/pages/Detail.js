@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
 import { Link, useParams } from 'react-router-dom';
 import Card from '@mui/material/Card';
@@ -10,17 +10,21 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import GridItem from '../components/GridItem';
 import { useSelector } from 'react-redux';
 import { getEmployee } from '../redux/ducks/employee';
+import Loading from '../components/Loading';
 
 
 const Detail = () => {
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
     const { id } = useParams();
     useEffect(()=>{
         dispatch(getEmployee(id));
+        setLoading(false)
     }, [])
-    const { employee } = useSelector((state) => {console.log(state); return state.employees;})
+    const { employee } = useSelector((state) => state.employees)
   return (
     <Card>
+        <Loading open={loading} />
         <CardHeader title={`Detail of ${employee.firstName + ' ' + employee.lastName}`} sx={{backgroundColor: 'custom.main', color: '#fff'}}/>
         <CardContent>
             <Box sx={{display: 'flex'}}>

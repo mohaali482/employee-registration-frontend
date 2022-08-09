@@ -15,3 +15,16 @@ export function requestGetEmployee(id){
         url: `${employeeUrl}/${id}`
     })
 }
+
+export function requestUpdateEmployee({id, form}){
+    const formData = new FormData(form);
+    const imageData = formData.get('image');
+    if (imageData['type'].split('/')[0] !== 'image'){
+        formData.delete('image');
+    }
+    return axios.request({
+        method: 'patch',
+        url: `${employeeUrl}/${id}/`,
+        data: formData
+    })
+}

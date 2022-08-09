@@ -5,7 +5,7 @@ const SET_EMPLOYEE_LIST = "SET_EMPLOYEE_LIST";
 const SET_EMPLOYEE = "SET_EMPLOYEE";
 
 const CREATE = "create";
-const UPDATE = "update";
+export const UPDATE_EMPLOYEE = "UPDATE_EMPLOYEE";
 const DELETE = "delete";
 
 export const getEmployeeList = () => ({
@@ -34,9 +34,9 @@ export const createEmployee = (data) => ({
     payload: {...data}
 })
 
-export const updateEmployee = (employee) => ({
-    type: UPDATE,
-    payload: {...employee}
+export const updateEmployee = (data) => ({
+    type: UPDATE_EMPLOYEE,
+    payload: {...data}
 })
 
 export const deleteEmployee = (id) => ({
@@ -86,17 +86,10 @@ export default function reducer(state=initialState, action) {
                     }
                 ]
             }
-        case UPDATE:
+        case UPDATE_EMPLOYEE:
             return {
                 ...state,
-                employees: [
-                    ...state.employees.filter((employee) => employee.id != action.payload.id),
-                    {
-                        id: action.payload.id,
-                        created_date: state.employees.find((employee) => employee.id == action.payload.id).created_date,
-                        ...action.payload
-                    }
-                ]
+                employee: action.payload
             }
 
         case DELETE:

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux/es/exports';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
@@ -12,6 +12,7 @@ import TableData from '../components/TableData';
 import { useSelector } from 'react-redux';
 import { TableFooter } from '@mui/material';
 import { getEmployeeList } from '../redux/ducks/employee';
+import Loading from '../components/Loading';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -21,15 +22,18 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     dispatch(getEmployeeList());
+    setLoading(false);
   },[])
   
   const { employees } = useSelector(state => state.employees)
   
   return (
       <TableContainer component={Paper}>
+        <Loading open={loading} />
         <Table>
           <TableHead>
             <TableRow sx={{backgroundColor:'custom.main'}}>

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { Button, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material';
-import { deleteEmployee } from '../redux/ducks/employee';
+import { deleteEmployee, getEmployee } from '../redux/ducks/employee';
 
 const Delete = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { employees } = useSelector((state) => state.employees)
-    const employee = employees.find((employee) => employee.id == id)
+    const { employee } = useSelector((state) => state.employees)
+
+    useEffect(() => {
+        dispatch(getEmployee(id))
+    }, [dispatch])
 
     const handleDelete = () => {
         dispatch(deleteEmployee(id))
@@ -17,7 +20,7 @@ const Delete = () => {
     }
   return (
     <Card>
-        <CardHeader title={'Delete Employee'} sx={{backgroundColor: 'danger.main', color: 'danger.contrastText'}}/>
+        <CardHeader title={`Delete Employee ${employee.firstName} ${employee.lastName}`} sx={{backgroundColor: 'danger.main', color: 'danger.contrastText'}}/>
         {
             employee !== undefined ?
         (<>

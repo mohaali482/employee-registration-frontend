@@ -6,7 +6,7 @@ const SET_EMPLOYEE = "SET_EMPLOYEE";
 
 const CREATE = "create";
 export const UPDATE_EMPLOYEE = "UPDATE_EMPLOYEE";
-const DELETE = "delete";
+export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";
 
 export const getEmployeeList = () => ({
     type: GET_EMPLOYEE_LIST
@@ -90,14 +90,6 @@ export default function reducer(state=initialState, action) {
             return {
                 ...state,
                 employee: action.payload
-            }
-
-        case DELETE:
-            return {
-                ...state,
-                employees: [
-                    ...state.employees.filter((employee) => employee.id != action.payload)
-                ]
             }
 
         default:

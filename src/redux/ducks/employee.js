@@ -41,7 +41,9 @@ export const updateEmployee = (data) => ({
 
 export const deleteEmployee = (id) => ({
     type: DELETE_EMPLOYEE,
-    payload: id
+    payload: {
+        id
+    }
 })
 
 const nextId = (employees) => {

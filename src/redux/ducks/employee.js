@@ -40,7 +40,7 @@ export const updateEmployee = (data) => ({
 })
 
 export const deleteEmployee = (id) => ({
-    type: DELETE,
+    type: DELETE_EMPLOYEE,
     payload: id
 })
 

@@ -28,3 +28,10 @@ export function requestUpdateEmployee({id, form}){
         data: formData
     })
 }
+
+export function requestDeleteEmployee(id){
+    return axios.request({
+        method: 'delete',
+        url: `${employeeUrl}/${id}`
+    })
+}

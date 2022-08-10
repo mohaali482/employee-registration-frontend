@@ -27,7 +27,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getEmployeeList());
     setLoading(false);
-  },[])
+  },[dispatch])
   
   const { employees } = useSelector(state => state.employees)
   

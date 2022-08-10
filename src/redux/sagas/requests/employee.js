@@ -35,3 +35,16 @@ export function requestDeleteEmployee(id){
         url: `${employeeUrl}/${id}`
     })
 }
+
+export function requestCreateEmployee({form}){
+    const formData = new FormData(form);
+    const imageData = formData.get('image');
+    if (imageData['type'].split('/')[0] !== 'image'){
+        formData.delete('image');
+    }
+    return axios.request({
+        method: 'post',
+        url: `${employeeUrl}/`,
+        data: formData
+    })
+}

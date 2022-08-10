@@ -46,17 +46,6 @@ export const deleteEmployee = (id) => ({
     }
 })
 
-const nextId = (employees) => {
-    let max = 0;
-    employees.map((employee) => {
-        if (max > employee.id){
-            max = employee.id
-        }
-    })
-
-    return ++max;
-}
-
 const initialState = {
     employees:[],
     employee:{}

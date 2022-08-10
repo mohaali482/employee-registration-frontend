@@ -36,7 +36,7 @@ export function* handleUpdateEmployee(action){
 
 export function* handleDeleteEmployee(action){
     try{
-        call(()=>requestDeleteEmployee(action.payload.id))
+        yield call(()=>requestDeleteEmployee(action.payload.id))
     }catch(error){
         console.error(error)
     }

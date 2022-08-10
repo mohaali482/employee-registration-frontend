@@ -4,7 +4,7 @@ export const GET_EMPLOYEE = "GET_EMPLOYEE";
 const SET_EMPLOYEE_LIST = "SET_EMPLOYEE_LIST";
 const SET_EMPLOYEE = "SET_EMPLOYEE";
 
-const CREATE = "create";
+export const CREATE_EMPLOYEE = "CREATE_EMPLOYEE";
 export const UPDATE_EMPLOYEE = "UPDATE_EMPLOYEE";
 export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";
 
@@ -30,7 +30,7 @@ export const setEmployee = (data) => ({
 })
 
 export const createEmployee = (data) => ({
-    type: CREATE,
+    type: CREATE_EMPLOYEE,
     payload: {...data}
 })
 
@@ -75,18 +75,6 @@ export default function reducer(state=initialState, action) {
             return {
                 ...state,
                 employee: action.payload
-            }
-        case CREATE:
-            return {
-                ...state,
-                employees: [
-                    ...state.employees,
-                    {
-                        id: nextId(state.employees),
-                        ...action.payload,
-                        created_date: new Date().toDateString()
-                    }
-                ]
             }
         case UPDATE_EMPLOYEE:
             return {

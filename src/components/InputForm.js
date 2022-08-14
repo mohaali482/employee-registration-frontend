@@ -8,48 +8,41 @@ import Loading from './Loading';
 const InputForm = ({employee, handleSubmit}) => {
 
   const [loading, setLoading] = useState(true);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [birthDate, setBirthDate] = useState( new Date('2000-01-01'));
-  const [martialStatus, setMartialStatus] = useState('single');
-  const [ssnCode, setSsnCode] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [email, setEmail] = useState('');
-  const [personalPhone, setPersonalPhone] = useState('');
-  const [homePhone, setHomePhone] = useState('');
-  const [image, setImage] = useState(null);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    birthDate: new Date('2000-01-01'),
+    martialStatus: 'single',
+    ssnCode: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    email: '',
+    personalPhone: '',
+    homePhone: '',
+    image: null
+  })
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(()=>{
-      if (image){
+      if (formData.image){
         try{
-          setImageUrl(URL.createObjectURL(image));
+          setImageUrl(URL.createObjectURL(formData.image));
         }catch{
-          setImageUrl(image)
+          setImageUrl(formData.image)
         }
       }
 
       return () => {
-        URL.revokeObjectURL(image);
+        URL.revokeObjectURL(formData.image);
       }
-  }, [image])
+  }, [formData.image])
 
   useEffect(() => {
     if (employee) {
-      setFirstName(employee.firstName)
-      setLastName(employee.lastName)
-      setBirthDate(employee.birthDate)
-      setMartialStatus(employee.martialStatus)
-      setSsnCode(employee.ssnCode)
-      setAddress(employee.address)
-      setCity(employee.city)
-      setPostalCode(employee.postalCode)
-      setEmail(employee.email)
-      setPersonalPhone(employee.personalPhone)
-      setHomePhone(employee.homePhone)
-      setImage(employee.image)
+      setFormData({
+        ...employee
+      })
     }
     setLoading(false)
   }, [employee])
@@ -60,8 +53,8 @@ const InputForm = ({employee, handleSubmit}) => {
       <CardContent>
         <Box sx={{display: 'flex', flexDirection: { xs: 'column', sm: 'row'}, justifyContent:'center', alignItems: {xs: 'center', sm:'flex-start'}}}>
           <Box width={'40%'} mr={'10px'} sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-              {image && imageUrl && (<img src={imageUrl} alt={image.name} width={'100%'}/>)}
-              <input accept='image/*' type='file' id='image' style={{display: 'none'}} name='image' onChange={e => setImage(e.target.files[0])}/>
+              {formData.image && imageUrl && (<img src={imageUrl} alt={formData.image.name} width={'100%'}/>)}
+              <input accept='image/*' type='file' id='image' style={{display: 'none'}} name='image' onChange={e => setFormData({...formData, image: e.target.files[0]})}/>
               <label htmlFor='image' style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
                   <Button variant='contained' color='custom' component='span' >
                       Upload Image
@@ -75,22 +68,22 @@ const InputForm = ({employee, handleSubmit}) => {
                 name='firstName'
                 label='First name'
                 required variant='outlined'
-                color='secondary' value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}/>
+                color='secondary' value={formData.firstName}
+                onChange={(e) => setFormData({...formData, firstName: e.target.value})}/>
               </Grid>
               <Grid item>
                 <TextField id='lastName'
                 name='lastName'
                 label='Last name' required
                 variant='outlined'
-                color='secondary' value={lastName}
-                onChange={(e) => setLastName(e.target.value)}/>
+                color='secondary' value={formData.lastName}
+                onChange={(e) => setFormData({...formData, lastName: e.target.value})}/>
               </Grid>
               <Grid item>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <MobileDatePicker label="Birth Date"                    
                     inputFormat="dd/MM/yyyy"
-                    value={birthDate} onChange={(value) => setBirthDate(value)}
+                    value={formData.birthDate} onChange={(value) => setFormData({...formData, birthDate: value})}
                     renderInput={(params) => <TextField name='birthDate' {...params} color='secondary'/>} />
                 </LocalizationProvider>
               </Grid>
@@ -98,10 +91,10 @@ const InputForm = ({employee, handleSubmit}) => {
                 <FormControl>
                   <InputLabel id='martial-status-label' color='secondary'>Martial Status</InputLabel>
                   <Select labelId='martial-status-label'
-                  name='martialStatus'
+                  name='martialStatus' defaultValue='single'
                   label='Martial Status' sx={{minWidth: 170}}
-                  color='secondary' value={martialStatus}
-                  onChange={(e) => setMartialStatus(e.target.value)}>
+                  color='secondary' value={formData.martialStatus}
+                  onChange={(e) => setFormData({...formData, martialStatus: e.target.value})}>
                     <MenuItem value={'married'}>Married</MenuItem>
                     <MenuItem value={'single'}>Single</MenuItem>
                   </Select>
@@ -112,52 +105,52 @@ const InputForm = ({employee, handleSubmit}) => {
                 name='ssnCode'
                 label='SSN Code' required
                 variant='outlined' color='secondary'
-                value={ssnCode} onChange={(e) => setSsnCode(e.target.value)}/>
+                value={formData.ssnCode} onChange={(e) => setFormData({...formData, ssnCode: e.target.value})}/>
               </Grid>
               <Grid item>
                 <TextField id='address'
                 name='address'
                 label='Address' required
                 variant='outlined' color='secondary'
-                value={address} onChange={(e) => setAddress(e.target.value)}/>
+                value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})}/>
               </Grid>
               <Grid item>
                 <TextField id='city'
                 name='city'
                 label='City' required
                 variant='outlined' color='secondary'
-                value={city} onChange={(e) => setCity(e.target.value)}/>
+                value={formData.city} onChange={(e) => setFormData({...formData, city: e.target.value})}/>
               </Grid>
               <Grid item>
                 <TextField id='postal_code'
                 name='postalCode'
                 label='Postal Code' required
                 variant='outlined' color='secondary'
-                value={postalCode} onChange={(e) => setPostalCode(e.target.value)}/>
+                value={formData.postalCode} onChange={(e) => setFormData({...formData, postalCode: e.target.value})}/>
               </Grid>
               <Grid item>
                 <TextField id='email'
                 name='email'
                 label='Email' required
                 variant='outlined' type={'email'}
-                color='secondary' value={email}
-                onChange={(e) => setEmail(e.target.value)}/>
+                color='secondary' value={formData.email}
+                onChange={(e) => setFormData({...formData, email: e.target.value})}/>
               </Grid>
               <Grid item>
                 <TextField id='personal_phone'
                 name='personalPhone'
                 label='Personal Phone' required
                 variant='outlined' type={'tel'}
-                color='secondary' value={personalPhone}
-                onChange={(e) => setPersonalPhone(e.target.value)}/>
+                color='secondary' value={formData.personalPhone}
+                onChange={(e) => setFormData({...formData, personalPhone: e.target.value})}/>
               </Grid>
               <Grid item>
                 <TextField id='home_phone'
                 name='homePhone'
                 label='Home Phone' required
                 variant='outlined' type={'tel'}
-                color='secondary' value={homePhone}
-                onChange={(e) => setHomePhone(e.target.value)}/>
+                color='secondary' value={formData.homePhone}
+                onChange={(e) => setFormData({...formData, homePhone: e.target.value})}/>
               </Grid>
             </Grid>
           </Container>

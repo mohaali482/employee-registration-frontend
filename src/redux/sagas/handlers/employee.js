@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { setEmployee, setEmployeeList } from '../../ducks/employee';
+import { setEmployee, setEmployeeList, setFormErrors, setFormErrorsNull } from '../../ducks/employee';
 import { requestCreateEmployee, requestDeleteEmployee, requestGetEmployee, requestGetEmployeeList, requestUpdateEmployee } from '../requests/employee';
 
 export function* handleGetEmployeeList(action){
@@ -45,7 +45,9 @@ export function* handleDeleteEmployee(action){
 export function* handleCreateEmployee(action){
     try{
         yield call(()=>requestCreateEmployee(action.payload))
+        yield put(setFormErrorsNull())
     }catch(error){
-        console.error(error)
+        const {data} = error.response;
+        yield put(setFormErrors(data))
     }
 }

@@ -3,6 +3,7 @@ export const GET_EMPLOYEE = "GET_EMPLOYEE";
 
 const SET_EMPLOYEE_LIST = "SET_EMPLOYEE_LIST";
 const SET_EMPLOYEE = "SET_EMPLOYEE";
+export const SET_EMPLOYEE_NULL = "SET_EMPLOYEE_NULL";
 
 const SET_FORM_ERRORS = "SET_FORM_ERRORS";
 const SET_FORM_ERRORS_NULL = "SET_FORM_ERRORS_NULL";
@@ -41,6 +42,10 @@ export const setFormErrorsNull = () => ({
 export const setEmployee = (data) => ({
     type: SET_EMPLOYEE,
     payload: {...data}
+})
+
+export const setEmployeeNull = () => ({
+    type: SET_EMPLOYEE_NULL
 })
 
 export const createEmployee = (data) => ({
@@ -98,6 +103,12 @@ export default function reducer(state=initialState, action) {
             return {
                 ...state,
                 formErrors: {}
+            }
+
+        case SET_EMPLOYEE_NULL:
+            return {
+                ...state,
+                employee:{}
             }
 
         default:

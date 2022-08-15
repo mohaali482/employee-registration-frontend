@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { getEmployee, setEmployee, setEmployeeList, setFormErrors, setFormErrorsNull } from '../../ducks/employee';
+import { setEmployee, setEmployeeList, setFormErrors, setFormErrorsNull } from '../../ducks/employee';
 import { requestCreateEmployee, requestDeleteEmployee, requestGetEmployee, requestGetEmployeeList, requestUpdateEmployee } from '../requests/employee';
 
 export function* handleGetEmployeeList(action){
